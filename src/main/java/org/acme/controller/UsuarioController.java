@@ -50,4 +50,18 @@ public class UsuarioController {
         usuarioService.delete(id);
         return Response.noContent().build();
     }
+
+    @POST
+    @Path("/login")
+    public Response login(UsuarioEntity credenciais) {
+    UsuarioEntity usuario = usuarioService.login(credenciais.getEmail(), credenciais.getSenha());
+    
+        if (usuario != null) {
+        return Response.ok(usuario).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                       .entity("Email ou senha inválidos.")
+                       .build();
+        }
+    }
 }

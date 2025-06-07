@@ -73,4 +73,8 @@ public class UsuarioService {
             throw new WebApplicationException("Erro ao excluir usuário", Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    public UsuarioEntity login(String email, String senha) {
+        return usuarioRepository.findByEmailAndSenha(email, senha);
+    }
 }
