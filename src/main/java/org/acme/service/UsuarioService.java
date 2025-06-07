@@ -74,7 +74,8 @@ public class UsuarioService {
         }
     }
     
-    public UsuarioEntity login(String email, String senha) {
-        return usuarioRepository.findByEmailAndSenha(email, senha);
+    public UsuarioEntity findByEmailAndSenha(String email, String senha) {
+        return usuarioRepository.find("email = ?1 and senha = ?2", email, senha)
+                .firstResult();
     }
 }

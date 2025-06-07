@@ -53,15 +53,17 @@ public class UsuarioController {
 
     @POST
     @Path("/login")
-    public Response login(UsuarioEntity credenciais) {
-    UsuarioEntity usuario = usuarioService.login(credenciais.getEmail(), credenciais.getSenha());
-    
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(UsuarioEntity credentials) {
+        UsuarioEntity usuario = usuarioService.findByEmailAndSenha(credentials.getEmail(), credentials.getSenha());
+
         if (usuario != null) {
-        return Response.ok(usuario).build();
+            return Response.ok(usuario).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED)
-                       .entity("Email ou senha inválidos.")
-                       .build();
+                    .entity("{"message": "Email ou senha inválidos."}")
+                    .build();
         }
     }
 }
