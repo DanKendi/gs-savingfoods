@@ -7,10 +7,10 @@ WORKDIR /app
 COPY . .
 
 
-RUN chmod +x ./mvnw
+RUN chmod +x ./mvn
 
 
-RUN ./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
+RUN ./mvn -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
 
 
 CMD ["sh", "-c", "java -jar target/quarkus-app/quarkus-run.jar"]
